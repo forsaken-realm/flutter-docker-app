@@ -1,0 +1,75 @@
+[{
+	"Id": "ac3b39eee32e9de9e55698d55bebcd7d7154b0c2dbb07899cbbb1adc457eb56c",
+	"Names": ["/recursing_hoover"],
+	"Image": "httpd",
+	"ImageID": "sha256:d4e60c8eb27a1e2a9370e6d0120008433b3f543888d3fd8636a2426b3b8b37aa",
+	"Command": "httpd-foreground",
+	"Created": 1600592135,
+	"Ports": [{
+		"PrivatePort": 80,
+		"Type": "tcp"
+	}],
+	"Labels": {},
+	"State": "running",
+	"Status": "Up 6 hours",
+	"HostConfig": {
+		"NetworkMode": "default"
+	},
+	"NetworkSettings": {
+		"Networks": {
+			"bridge": {
+				"IPAMConfig": null,
+				"Links": null,
+				"Aliases": null,
+				"NetworkID": "332d14a0aabbdc6755860279db0d7a2ab2a7497e366f18e8444c0a27ebdfa407",
+				"EndpointID": "38561720052e253a43fc048046787c4722784e5743dee5e6d8446f59fcdf1a85",
+				"Gateway": "172.17.0.1",
+				"IPAddress": "172.17.0.3",
+				"IPPrefixLen": 16,
+				"IPv6Gateway": "",
+				"GlobalIPv6Address": "",
+				"GlobalIPv6PrefixLen": 0,
+				"MacAddress": "02:42:ac:11:00:03",
+				"DriverOpts": null
+			}
+		}
+	},
+	"Mounts": []
+}, {
+	"Id": "bede86ff8c44fd9e3942fdeb617eb0981475565f46e3e4192415b1a1aba78c8a",
+	"Names": ["/awesome_easley"],
+	"Image": "httpd",
+	"ImageID": "sha256:d4e60c8eb27a1e2a9370e6d0120008433b3f543888d3fd8636a2426b3b8b37aa",
+	"Command": "httpd-foreground",
+	"Created": 1600592080,
+	"Ports": [{
+		"PrivatePort": 80,
+		"Type": "tcp"
+	}],
+	"Labels": {},
+	"State": "running",
+	"Status": "Up 6 hours",
+	"HostConfig": {
+		"NetworkMode": "default"
+	},
+	"NetworkSettings": {
+		"Networks": {
+			"bridge": {
+				"IPAMConfig": null,
+				"Links": null,
+				"Aliases": null,
+				"NetworkID": "332d14a0aabbdc6755860279db0d7a2ab2a7497e366f18e8444c0a27ebdfa407",
+				"EndpointID": "7769f6d9d5765dd0a1714d8e114a748cabb1beeb5817d6ad794ab1ef6277869a",
+				"Gateway": "172.17.0.1",
+				"IPAddress": "172.17.0.2",
+				"IPPrefixLen": 16,
+				"IPv6Gateway": "",
+				"GlobalIPv6Address": "",
+				"GlobalIPv6PrefixLen": 0,
+				"MacAddress": "02:42:ac:11:00:02",
+				"DriverOpts": null
+			}
+		}
+	},
+	"Mounts": []
+}]
