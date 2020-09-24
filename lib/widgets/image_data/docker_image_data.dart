@@ -2,19 +2,14 @@ import 'package:authencicationtest/models/docker_images.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 
-class ImagesData extends StatefulWidget {
+class ImagesData extends StatelessWidget {
   final List<Images> imagesdata;
   ImagesData({Key key, this.imagesdata}) : super(key: key);
 
   @override
-  _ImagesDataState createState() => _ImagesDataState();
-}
-
-class _ImagesDataState extends State<ImagesData> {
-  @override
   Widget build(BuildContext context) {
     return ListView(
-      children: widget.imagesdata.map((e) {
+      children: imagesdata.map((e) {
         return ListTile(
           leading: IconButton(
               icon: Icon(Icons.content_copy),
@@ -22,6 +17,7 @@ class _ImagesDataState extends State<ImagesData> {
               onPressed: () {
                 FlutterClipboard.copy(e.imageName[0].toString()).then((value) {
                   final snackBar = SnackBar(
+                    duration: Duration(seconds: 1),
                     content: Text(
                       'Copied to Clipboard',
                       style: TextStyle(

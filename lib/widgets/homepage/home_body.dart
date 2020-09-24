@@ -1,9 +1,9 @@
 import 'package:authencicationtest/models/docker_images.dart';
+import 'package:authencicationtest/widgets/Linux_performance/performance.dart';
 import 'package:authencicationtest/widgets/image_data/docker_image_data.dart';
 import 'package:flutter/material.dart';
 import '../../models/server.dart';
 import 'package:http/http.dart' as http;
-import 'package:clipboard/clipboard.dart';
 
 class Mybody extends StatefulWidget {
   final double screenWidth, screenHeight;
@@ -184,12 +184,14 @@ class _MybodyState extends State<Mybody> {
             ClipRRect(
               borderRadius: BorderRadius.circular(40),
               child: Container(
-                  margin: EdgeInsets.all(10),
-                  height: widget.screenHeight * 0.24,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Color.fromRGBO(46, 46, 46, 1),
-                  )),
+                margin: EdgeInsets.all(10),
+                height: widget.screenHeight * 0.24,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Color.fromRGBO(46, 46, 46, 1),
+                ),
+                //child: Performance(),
+              ),
             )
           ],
         ),
