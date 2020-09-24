@@ -1,6 +1,8 @@
+import 'package:authencicationtest/models/docker_images.dart';
 import 'package:flutter/material.dart';
 import '../../models/server.dart';
 import 'package:http/http.dart' as http;
+import 'package:clipboard/clipboard.dart';
 
 class Mybody extends StatefulWidget {
   final double screenWidth, screenHeight;
@@ -130,31 +132,69 @@ class _MybodyState extends State<Mybody> {
             SizedBox(
               height: 5,
             ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 10,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Container(
-                    height: widget.screenHeight * 0.2,
-                    width: widget.screenWidth * 0.45,
-                    color: Color.fromRGBO(46, 46, 46, 1),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 10,
                   ),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Container(
-                    height: widget.screenHeight * 0.2,
-                    width: widget.screenWidth * 0.45,
-                    color: Color.fromRGBO(46, 46, 46, 1),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      height: widget.screenHeight * 0.2,
+                      width: widget.screenWidth * 0.45,
+                      color: Color.fromRGBO(46, 46, 46, 1),
+                      child: Column(
+                        //crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Images avliable',
+                            style: TextStyle(
+                                color: Colors.amber[900],
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                          Divider(
+                            color: Colors.amber[900],
+                          ),
+                          SizedBox(
+                            height: 100,
+                            child: FutureBuilder(
+                              future: fetchDockerImageData(
+                                  http.Client(), 'images/json'),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError) print(snapshot.error);
+
+                                return snapshot.hasData
+                                    ? ImagesData(
+                                        imagesdata: snapshot.data,
+                                      )
+                                    : Text('No images avliable');
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                )
-              ],
+                  SizedBox(
+                    width: 20,
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(30),
+                    child: Container(
+                      height: widget.screenHeight * 0.2,
+                      width: widget.screenWidth * 0.45,
+                      color: Color.fromRGBO(46, 46, 46, 1),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  )
+                ],
+              ),
             ),
             SizedBox(
               height: 10,
@@ -172,6 +212,41 @@ class _MybodyState extends State<Mybody> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ImagesData extends StatefulWidget {
+  final List<Images> imagesdata;
+  ImagesData({Key key, this.imagesdata}) : super(key: key);
+
+  @override
+  _ImagesDataState createState() => _ImagesDataState();
+}
+
+class _ImagesDataState extends State<ImagesData> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: widget.imagesdata.map((e) {
+        return ListTile(
+          leading: IconButton(
+              icon: Icon(Icons.content_copy),
+              color: Colors.amber[900],
+              onPressed: () {
+                FlutterClipboard.copy(e.imageName[0].toString());
+              }),
+          title: Text(
+            e.imageName[0].toString(),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 17,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.clip,
+          ),
+        );
+      }).toList(),
     );
   }
 }

@@ -27,7 +27,12 @@ class Splash2 extends StatelessWidget {
         textScaleFactor: 2,
       ),
       image: new Image.asset('images/download.png'),
-      loadingText: Text("Taking you in"),
+      loadingText: Text(
+        "Taking you in",
+        style: TextStyle(
+          color: Colors.amber,
+        ),
+      ),
       photoSize: 100.0,
       loaderColor: Colors.amber[900],
     );
