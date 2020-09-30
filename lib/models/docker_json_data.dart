@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<Jsondata>> fetchDockerContainerData(
-    http.Client client, String cmd) async {
+    http.Client client, String cmd, String ip) async {
   final response = await client.get(
-      'http://52.188.71.174/cgi-bin/docker.py?x=curl%20-s%20--unix-socket%20/var/run/docker.sock%20http://localhost/$cmd');
+      'http://192.168.225.116/cgi-bin/web.py?x=curl%20-s%20--unix-socket%20/var/run/docker.sock%20http://localhost/$cmd');
 
   // Use the compute function to run parsePhotos in a separate isolate.
   return compute(parsePhotos, response.body);

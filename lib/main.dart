@@ -1,4 +1,5 @@
 import 'package:authencicationtest/widgets/homepage/home.dart';
+
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 
@@ -21,12 +22,14 @@ class Splash2 extends StatelessWidget {
     return SplashScreen(
       seconds: 2,
       backgroundColor: Colors.black,
-      navigateAfterSeconds: MenuDashboardPage(),
+      navigateAfterSeconds: MyhomePage(),
       title: new Text(
         'Pocket Docker',
         textScaleFactor: 2,
       ),
-      image: new Image.asset('images/download.png'),
+      image: new Image.asset(
+        'images/download.png',
+      ),
       loadingText: Text(
         "Taking you in",
         style: TextStyle(

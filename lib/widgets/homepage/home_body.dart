@@ -1,17 +1,10 @@
 import 'package:authencicationtest/models/docker_images.dart';
-import 'package:authencicationtest/widgets/Linux_performance/performance.dart';
 import 'package:authencicationtest/widgets/image_data/docker_image_data.dart';
 import 'package:flutter/material.dart';
 import '../../models/server.dart';
 import 'package:http/http.dart' as http;
 
 class Mybody extends StatefulWidget {
-  final double screenWidth, screenHeight;
-  final images = server(
-      'docker images --format \'{"ID":"{{.Repository}}"},\'', http.Client());
-
-  Mybody({this.screenHeight, this.screenWidth});
-
   @override
   _MybodyState createState() => _MybodyState();
 }
@@ -19,26 +12,37 @@ class Mybody extends StatefulWidget {
 class _MybodyState extends State<Mybody> {
   final nametext = TextEditingController();
   final imagetext = TextEditingController();
+  final iptext = TextEditingController();
+  double screenWidth, screenHeight;
+  String ipAddress;
 
   String dropDownValue = 'Isolated';
   void submitted() {
     final enterdname = nametext.text;
     final enterdimage = imagetext.text;
+    final enteredIP = iptext.text;
     if (enterdimage != null && enterdname != null) {
       nametext.clear();
       imagetext.clear();
     }
+    if (enterdimage != null && enterdname != null && enteredIP != null) {
+      server('docker+run+-dit+--name+$enterdname+$enterdimage', http.Client());
+    }
     print(enterdimage);
     print(enterdname);
+    print(enteredIP);
   }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    screenHeight = size.height;
+    screenWidth = size.width;
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: Container(
-        width: widget.screenWidth,
-        height: widget.screenHeight,
+        width: screenWidth,
+        height: screenHeight,
         color: Colors.black,
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.start,
@@ -47,8 +51,8 @@ class _MybodyState extends State<Mybody> {
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.35,
-                width: widget.screenWidth,
+                height: MediaQuery.of(context).size.height * 0.44,
+                width: screenWidth,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Color.fromRGBO(46, 46, 46, 1),
@@ -58,6 +62,21 @@ class _MybodyState extends State<Mybody> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Enter IP Address',
+                        labelStyle: TextStyle(
+                          color: Colors.amber[900],
+                        ),
+                      ),
+                      controller: iptext,
+                      onChanged: (_) {
+                        setState(() {
+                          ipAddress = iptext.text;
+                        });
+                      },
+                      style: TextStyle(color: Colors.white),
+                    ),
                     TextField(
                       decoration: InputDecoration(
                         labelText: 'Enter Image name',
@@ -137,12 +156,12 @@ class _MybodyState extends State<Mybody> {
                   width: 10,
                 ),
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(20),
                   child: Container(
                     //margin: EdgeInsets.all(10),
                     padding: EdgeInsets.all(10),
-                    height: widget.screenHeight * 0.2,
-                    width: widget.screenWidth * 0.95,
+                    height: screenHeight * 0.36,
+                    width: screenWidth * 0.95,
                     color: Color.fromRGBO(46, 46, 46, 1),
                     child: Column(
                       children: [
@@ -168,7 +187,17 @@ class _MybodyState extends State<Mybody> {
                                   ? ImagesData(
                                       imagesdata: snapshot.data,
                                     )
-                                  : Text('No images avliable');
+                                  : Container(
+                                      width: 150,
+                                      height: 150,
+                                      child: Center(
+                                        child: Image(
+                                          image: NetworkImage(
+                                            'https://media.giphy.com/media/kd3uvnVNZaFnXepecO/giphy.gif',
+                                          ),
+                                        ),
+                                      ),
+                                    );
                             },
                           ),
                         ),
@@ -181,18 +210,6 @@ class _MybodyState extends State<Mybody> {
             SizedBox(
               height: 5,
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(40),
-              child: Container(
-                margin: EdgeInsets.all(10),
-                height: widget.screenHeight * 0.24,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Color.fromRGBO(46, 46, 46, 1),
-                ),
-                //child: Performance(),
-              ),
-            )
           ],
         ),
       ),

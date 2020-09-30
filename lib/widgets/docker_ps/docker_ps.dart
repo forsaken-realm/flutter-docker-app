@@ -9,25 +9,17 @@ class Page1 extends StatefulWidget {
 }
 
 class _Page1State extends State<Page1> {
+  final String ipAddress = '1';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       //this button helps the user get back to main page
-      floatingActionButton: ClipRRect(
-        borderRadius: BorderRadius.circular(40),
-        child: RaisedButton(
-          elevation: 22,
-          onPressed: () => Navigator.pop(context),
-          child: Text('Go back'),
-          color: Colors.amber[900],
-        ),
-      ),
       backgroundColor: Colors.black,
       //
       body: FutureBuilder<List<Jsondata>>(
         //takes the fuction(which returns data to be used to be build) and gives it to builder
-        future: fetchDockerContainerData(
-            http.Client(), 'containers/json?all=1&before=8dfafdbc3a40&size=1'),
+        future: fetchDockerContainerData(http.Client(),
+            'containers/json?all=1&before=8dfafdbc3a40&size=1', ipAddress),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
 
@@ -107,13 +99,16 @@ class DockerList extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    containers[index].state.toUpperCase(),
-                    style: TextStyle(
-                        color: containers[index].state == "exited"
-                            ? Colors.red
-                            : Colors.green[900],
-                        fontWeight: FontWeight.bold),
+                  FlatButton(
+                    child: Text(
+                      containers[index].state.toUpperCase(),
+                      style: TextStyle(
+                          color: containers[index].state == "exited"
+                              ? Colors.red
+                              : Colors.green[900],
+                          fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {},
                   ),
                 ],
               ),
